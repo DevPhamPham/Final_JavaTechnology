@@ -1,0 +1,86 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}" href="#">
+                <img th:src="@{/logo/logo.png}" src="../static/logo/logo.jpg" width="70" height="70" class="d-inline-block align-top rounded-circle" style="object-fit: cover;" alt="logo"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" th:classappend="${currentPage == 'home' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/}" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'intro' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/intro}" href="">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'shop' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/shop}" href="">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'news' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/news}" href="/news">Tin tức</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'contact' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/contact}" href="/contact">Liên hệ</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'guide' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/guide}" href="/guide">Hướng dẫn mua hàng</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-phone"></i> Hotline: 0908 77 00 95</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated() and hasRole('USER')" th:classappend="${currentPage == 'orderCheck' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/orderCheck}" href="/orderCheck"><i class="fa fa-pencil-square-o"></i> Kiểm tra đơn hàng</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated() and hasRole('USER')" th:classappend="${currentPage == 'carts' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/cart}" href="/cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng<span id="soluonggiohang" class="nav-link d-inline" th:text="(${cartCount})">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="/login"><i class="fa fa-sign-in"></i> Đăng nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="logout" style="cursor: pointer;" class="nav-link" sec:authorize="isAuthenticated()" ><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'management' ? 'active' : ''}">
+                        <a class="nav-link" sec:authorize="isAuthenticated() and hasRole('ADMIN')" th:href="@{/admin}" href="/admin"><i class="fa-solid fa-user"></i> Quản lý</a>
+                    </li>
+                    <li class="nav-item" th:classappend="${currentPage == 'account' ? 'active' : ''}">
+                        <a class="nav-link" sec:authorize="isAuthenticated() and hasRole('USER')" th:href="@{/account}" href="/account"><i class="fa-regular fa-user"></i> Tài Khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/register}" href="/register"><i class="fa fa-key"></i> Đăng ký</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Nhúng sweetalert2 từ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function (){
+            $("#logout").on("click", function (e){
+                e.preventDefault();
+                Swal.fire({
+                    title: 'warning',
+                    text: "Bạn có muốn đăng xuất!",
+                    icon: 'warning',
+                    showCancelButton: false,
+                    // cancelButtonColor: '#d33',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK!'
+                }).then(result => {
+                    if (result.isConfirmed){
+                        window.location.href = "/logout";
+                    }
+                });
+            });
+        })
+    </script>
+</header>
