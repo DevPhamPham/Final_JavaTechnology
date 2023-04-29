@@ -13,9 +13,6 @@
 ### Tài khoản ADMIN:
 -   <b> Email: admin@gmail.com </b>
 -   <b> Password: admin </b>
-### Tài khoản USER:
--   <b> Email:</b> pham.duykhoa1303@gmail.com 
--   <b> Password:</b> khoa1303 
 
 ### Build Web Service Using:
 + backend: Spring Boot 2.7.10
